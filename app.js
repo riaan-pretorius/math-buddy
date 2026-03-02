@@ -231,7 +231,14 @@ const app = {
         st.currentTestQuestionIndex = 0;
         let q = [];
         for (let i = 0; i <= 12; i++) q.push(i);
-        st.testQuestions = q.sort(() => Math.random() - 0.5);
+
+        // Fisher-Yates shuffle for robust randomization
+        for (let i = q.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [q[i], q[j]] = [q[j], q[i]];
+        }
+
+        st.testQuestions = q;
         this.nextQuestion();
     },
 
